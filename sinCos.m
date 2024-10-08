@@ -30,14 +30,14 @@ xlabel('Time (s)')
 grid on
 legend('sin(2*pi*f*t)', 'cos(2*pi*f*t)')
 xlim([0 0.01])
-% pause();
+pause();
 %% Dot product https://www.mathworks.com/help/matlab/ref/dot.html
 dot_sin1cos1= dot(sin1,cos1) %dot product of the sin signal with the cos signal
 dot_selfsin1= dot(sin1,sin1); %dot product of the sin signal with itself (its energy or its norm^2)
 dot_selfcos1= dot(cos1,cos1); %dot product of the cos signal with itself (its energy or its norm^2)
 
-ampsin1=1; %amplitude of sin1 for the summation
-ampcos1=1; %amplitude of cos1 for the summation
+ampsin1=3; %amplitude of sin1 for the summation
+ampcos1=2; %amplitude of cos1 for the summation
 
 sumsincos=ampsin1*sin1+ampcos1*cos1; %sum of sin and cos signals
 

@@ -1,21 +1,20 @@
-% Superposition of sinusoidal waves
+% Superposition and Filtering
 %
 % Turker Dolapci
-% 2024.08.10
+% 2024.09.24
 %
-
 clear all 	% clears everything in workspace
 close all	% closes if there is something (e.g. figures)
 clc 		% clears command window
 
-fs= 40*1e3; %sampling rate equals to the number of samples per second (samples per second)
-tdur= 0.5; 		% time length of the signal to be generated in seconds
+fs= 40*1e6; %sampling rate equals to the number of samples per second (samples per second)
+tdur= 100*1e-6; 		% time length of the signal to be generated in seconds
 t= (0:(1/fs):tdur).'; 	%time vector
 %it is advised for you to create column vectors, rather than row vectors
 %because it is the convention, obey the conventions!! 
-fc= 1*1e3; 	
+fc= 1*1e6; 	
 T=1/fc;
-R=50; 		% impedance of the load (resistor connected to the voltage source)
+R=1; 		% impedance of the load (resistor connected to the voltage source)
 
 
 sig1= (1)*sin(2*pi*fc*t); 	
@@ -89,7 +88,6 @@ grid on
 
 %%%%%%%%%%%%%
 %filtering
-% https://www.mathworks.com/help/signal/ref/bandpass.html
 filterbw=fc/10;
 filteredsig1=bandpass(totalsig,[fc-filterbw/2 fc+filterbw/2],fs);
 filteredsig2=bandpass(totalsig,[3*fc-filterbw/2 3*fc+filterbw/2],fs);
@@ -147,10 +145,14 @@ P_avg_filteredsig5=10*log10(mean(filteredsig5.^2/R))+30;
 P_avg_filteredsignals=[P_avg_filteredsig1;P_avg_filteredsig2;P_avg_filteredsig3;P_avg_filteredsig4;P_avg_filteredsig5]
 
 
-
-sa = spectrumAnalyzer('SampleRate',fs, ...
-    'ReferenceLoad',R,...
+saSingleSided = spectrumAnalyzer('InputDomain','time',...
+    'SampleRate',fs, ...
+    'FrequencyResolutionMethod','rbw',...
+    'RBWSource','property',...
+    'RBW',10e3,...
+    'VBWSource','property',...
+    'VBW',10e3,...
     'PlotAsTwoSidedSpectrum',false,...
-    'SpectrumType','Power');
-
-sa(totalsig)
+    'SpectrumType','rms',...
+    'SpectrumUnits','Vrms');
+saSingleSided(totalsig);
