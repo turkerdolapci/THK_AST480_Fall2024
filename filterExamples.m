@@ -10,7 +10,7 @@ clc
 
 fs= 50*1e3; %sampling rate
 numsamp=10*1e3;%number of samples to be generated
-fftlen=1024;
+fftlen=1024; %length of fft
 
 f1=5*1e3;
 f2=10*1e3;
@@ -45,33 +45,51 @@ plot(f_values,totalsig_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('all pass')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
 
 subplot(6,1,2)
 plot(f_values,filteredsig1_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('low pass 7khz')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
 
 subplot(6,1,3)
 plot(f_values,filteredsig2_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('low pass 12khz')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
 
 subplot(6,1,4)
 plot(f_values,filteredsig3_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('high pass 12khz')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
 
 subplot(6,1,5)
 plot(f_values,filteredsig4_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('band pass 7khz-12khz')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
 
 subplot(6,1,6)
 plot(f_values,filteredsig5_fftdB);
 grid on;
 ylim([20 50])
 xlim([-0.5*fs 0.5*fs])
+title('band stop 7khz-12khz')
+xlabel('Frequency (Hz)')
+ylabel('Amp. (dB)')
