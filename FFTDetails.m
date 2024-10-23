@@ -20,7 +20,7 @@ df=fs/fftlen; %frequency resolution of fft
 faxis=(0:df:(fs-df)).'; %frequency values of fft outputs, 0 to fs
 
 %fc= 4e6; % frequency of the signal to be generated
-fc= faxis(250); % frequency of the signal to be generated
+fc= faxis(250) % frequency of the signal to be generated
 
 real_tone= exp(j*2*pi*fc*t)+exp(-j*2*pi*fc*t); %cos(2*pi*fc*t) (LEARN EULER'S FORMULA)
 fftof_real_tone=abs(fft(real_tone,fftlen))/fftlen;

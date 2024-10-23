@@ -17,7 +17,7 @@ f2=10*1e3;
 f3=15*1e3;
 
 t= (0:(1/fs):((numsamp-1)/fs)).'; %time vector
-df=fs/fftlen;
+df=fs/fftlen; %frequency reasolution for fft
 f_values= (((-fs/2):df:((fs/2)-df)) + (mod(fftlen,2)*df)/2).'; %frequency values of fft outputs, -0.5fs to 0.5fs
 
 sin1=sin(2*pi*f1*t);
@@ -26,11 +26,11 @@ sin3=sin(2*pi*f3*t);
 
 totalsig=sin1+sin2+sin3;
 
-filteredsig1=lowpass(totalsig,7*1e3,fs);
-filteredsig2=lowpass(totalsig,12*1e3,fs);
-filteredsig3=highpass(totalsig,12*1e3,fs);
-filteredsig4=bandpass(totalsig,[7*1e3 12*1e3],fs);
-filteredsig5=bandstop(totalsig,[7*1e3 12*1e3],fs);
+[filteredsig1,filter1]=lowpass(totalsig,7*1e3,fs);
+[filteredsig2,filter2]=lowpass(totalsig,12*1e3,fs);
+[filteredsig3,filter3]=highpass(totalsig,12*1e3,fs);
+[filteredsig4,filter4]=bandpass(totalsig,[7*1e3 12*1e3],fs);
+[filteredsig5,filter5]=bandstop(totalsig,[7*1e3 12*1e3],fs);
 
 totalsig_fftdB=20*log10(abs(fftshift(fft(totalsig,fftlen))));
 filteredsig1_fftdB=20*log10(abs(fftshift(fft(filteredsig1,fftlen))));
@@ -93,3 +93,6 @@ xlim([-0.5*fs 0.5*fs])
 title('band stop 7khz-12khz')
 xlabel('Frequency (Hz)')
 ylabel('Amp. (dB)')
+
+filterAnalyzer(filter1, filter2, filter3, filter4, filter5)
+

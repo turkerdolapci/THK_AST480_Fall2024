@@ -44,7 +44,7 @@ pause();
 
 % Generate a test signal
 fTest= f_values(20) %frequency of the test signal
-phaseTest_deg=30 %phase fof the test signal
+phaseTest_deg=90 %phase fof the test signal
 sigTest= exp(j*2*pi*fTest*t+j*deg2rad(phaseTest_deg)); %generated test signal
 
 % correlation matrix which shows the correlation between the complex
